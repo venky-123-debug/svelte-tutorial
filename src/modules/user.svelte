@@ -5,7 +5,7 @@
   export let user, i
   const dispatch = createEventDispatcher()
 
-  const deleteUser = (id) => {
+  const deleteUser = () => {
     dispatch("remove", user.id)
   }
 </script>
