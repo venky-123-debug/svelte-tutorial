@@ -5,6 +5,10 @@
   const close = () => {
     dispatch("close")
   }
+
+  const handleForm = () => {
+    dispatch("submit")
+  }
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -14,7 +18,7 @@
   <div class="fixed inset-0 z-10 overflow-y-auto">
     <div class="flex min-h-full items-center justify-center p-4 text-center sm:items-center sm:p-0">
       <div class="relative transform overflow-hidden rounded-lg bg-primaryBlack px-4 pb-4 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm sm:p-6">
-        <form class="mt-5 sm:mt-6">
+        <form class="mt-5 sm:mt-6" on:submit|preventDefault={handleForm}>
           <slot />
 
           <div class="flex justify-between">
