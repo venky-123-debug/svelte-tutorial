@@ -1,5 +1,6 @@
 <script>
   import User from "../modules/user.svelte"
+  import FilterUser from "./filterUser.svelte"
 
   let users = [
     {
@@ -32,25 +33,18 @@
    * @param e - event to find active status for the user
    * @returns filteredUsers
    */
-  const filterUser = (e) => {
-    let active = e.target.value === "true"
-    if (e.target.value === "null") {
+  const filterUser = ({ detail }) => {
+    if (detail === "null") {
       filteredUsers = users
-      return filteredUsers
+      return
     }
+    const active = detail === "true"
     filteredUsers = users.filter((user) => user.active === active)
   }
 </script>
 
 <h1>List Of Users</h1>
-<div class="ml-4 mt-4 ">
-  <label for="UserFilter" class="text-lg font-bold text-primaryBlue">UserFilter</label>
-  <select on:change={filterUser} name="userfilter" class="ml-4 rounded-md border border-primaryBlue bg-primaryBlack px-2 py-2 text-textGray focus:outline-none">
-    <option value={null}>All</option>
-    <option value={true}>Active</option>
-    <option value={false}>InActive</option>
-  </select>
-</div>
+<FilterUser on:filter={filterUser} />
 {#each filteredUsers as user, i (user.id)}
   <User {user} {i} />
 {:else}
