@@ -20,13 +20,13 @@
   }
 </script>
 
-<h1>List Of Users</h1>
+<h1 class="mt-10 text-center text-2xl font-bold text-white">List Of Users</h1>
 {#each getUser() as { image, name, mail, id }, i (id)}
-  <div>
-    <p>{i + 1}</p>
-    <img src={image} alt={name} />
-    <p>{name}</p>
-    <p>{mail}</p>
+  <div class="m-4 flex items-center rounded-md bg-primaryGray p-5 shadow-box_Shadow">
+    <p class="w-10 text-white">{i + 1}</p>
+    <img src={image} alt={name} class=" h-14 w-14 rounded-full" />
+    <p class=" mx-4 w-20 text-white">{name}</p>
+    <p class=" mx-4 w-20 text-white">{mail}</p>
   </div>
 {:else}
   <p>No users found</p>
