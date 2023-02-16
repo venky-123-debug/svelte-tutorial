@@ -1,7 +1,8 @@
 <script>
+  import User from "./components/user.svelte"
 </script>
 
-<main />
+<User />
 
 <style global lang="postcss">
   @tailwind base;
