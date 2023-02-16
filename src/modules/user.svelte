@@ -1,8 +1,19 @@
 <script>
+  import { createEventDispatcher } from "svelte"
+  import Delete from "../svgIcons/delete.svelte"
+
   export let user, i
+  const dispatch = createEventDispatcher()
+
+  const deleteUser = (id) => {
+    dispatch("remove", user.id)
+  }
 </script>
 
-<div class="userCard">
+<div class="userCard relative">
+  <button on:click={deleteUser} class="absolute right-2 top-2 text-red-600 hover:text-red-700 ">
+    <Delete />
+  </button>
   <div class="w-10 text-white">{i + 1}</div>
   <img src={user.image} alt={user.name} class="image" />
   <p>{user.name}</p>
