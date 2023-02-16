@@ -51,12 +51,12 @@
     console.log(detail)
 
     users = [
-      ...users,
       {
         id: users.length + 1,
         image: "/assets/images/user2.png",
         ...detail,
       },
+      ...users,
     ]
   }
 </script>
