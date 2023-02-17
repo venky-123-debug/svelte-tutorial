@@ -3,7 +3,7 @@
 </script>
 
 <!-- <div class="relative"> -->
-<div class="flex min-h-screen flex-col overflow-hidden bg-primaryBlack">
+<div class="flex min-h-screen flex-col items-center overflow-hidden bg-primaryBlack">
   <User />
 </div>
 
