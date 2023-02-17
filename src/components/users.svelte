@@ -5,7 +5,8 @@
   import { userStore, deleteUser, addUser } from "../stores/userStore"
   import { tweened } from "svelte/motion"
   import { onMount } from "svelte"
-  import { cubicIn } from "svelte/easing"
+  import { cubicIn, quintOut } from "svelte/easing"
+  import { flip } from "svelte/animate"
   $: filteredUsers = $userStore
 
   /**
@@ -36,7 +37,9 @@
   </div>
   <progress max="10" min="0" value={$progress} class="mt-4 w-full px-4" />
   {#each filteredUsers as user, i (user.id)}
-    <User on:remove={deleteUser} {user} {i} />
+    <div animate:flip={{ delay: 250, duration: 1000, easing: quintOut }}>
+      <User on:remove={deleteUser} {user} {i} />
+    </div>
   {:else}
     <p>No users found</p>
   {/each}
