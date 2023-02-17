@@ -2,6 +2,8 @@
   import { createEventDispatcher } from "svelte"
   import Delete from "../svgIcons/delete.svelte"
 
+  import { slide } from "svelte/transition"
+
   export let user, i
   const dispatch = createEventDispatcher()
 
@@ -10,7 +12,7 @@
   }
 </script>
 
-<div class="userCard relative">
+<div transition:slide={{ duration: 500 }} class="userCard relative">
   <button on:click={deleteUser} class="absolute right-2 top-2 text-red-600 hover:text-red-700 ">
     <Delete />
   </button>
