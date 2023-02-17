@@ -2,32 +2,11 @@
   import User from "../modules/user.svelte"
   import FilterUser from "./filterUser.svelte"
   import NewUser from "./newUser.svelte"
-
-  let users = [
-    {
-      id: 1,
-      name: "John",
-      image: "assets/images/user3.png",
-      mail: "john@email.com",
-      active: true,
-    },
-    {
-      id: 2,
-      name: "John",
-      image: "assets/images/user2.png",
-      mail: "john@email.com",
-      active: false,
-    },
-    {
-      id: 3,
-      name: "John",
-      image: "assets/images/user1-1.png",
-      mail: "john@email.com",
-      active: false,
-    },
-  ]
-
-  $: filteredUsers = users
+  import { userStore, deleteUser, addUser } from "../stores/userStore"
+  import { tweened } from "svelte/motion"
+  import { onMount } from "svelte"
+  import { cubicIn } from "svelte/easing"
+  $: filteredUsers = $userStore
 
   /**
    *
@@ -36,29 +15,17 @@
    */
   const filterUser = ({ detail }) => {
     if (detail === "null") {
-      filteredUsers = users
+      filteredUsers = $userStore
       return
     }
     const active = detail === "true"
-    filteredUsers = users.filter((user) => user.active === active)
+    filteredUsers = $userStore.filter((user) => user.active === active)
   }
 
-  const deleteUser = ({ detail }) => {
-    users = users.filter((user) => user.id !== detail)
-  }
-
-  const addUser = ({ detail }) => {
-    console.log(detail)
-
-    users = [
-      {
-        id: users.length + 1,
-        image: "/assets/images/user2.png",
-        ...detail,
-      },
-      ...users,
-    ]
-  }
+  const progress = tweened(0, { duration: 1000, easing: cubicIn })
+  onMount(() => {
+    progress.set(filteredUsers.length)
+  })
 </script>
 
 <div class="w-4/6">
@@ -67,6 +34,7 @@
     <FilterUser on:filter={filterUser} />
     <NewUser on:newUser={addUser} />
   </div>
+  <progress max="10" min="0" value={$progress} class="mt-4 w-full px-4" />
   {#each filteredUsers as user, i (user.id)}
     <User on:remove={deleteUser} {user} {i} />
   {:else}
